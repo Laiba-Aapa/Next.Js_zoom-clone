@@ -9,7 +9,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LayoutList, Users } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import EndCallButton from './EndCallButton'
 import Loader from './Loader'
 
@@ -17,7 +17,7 @@ import Loader from './Loader'
 type callLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
 const MeetingRoom = () => {
     const searchParams = useSearchParams();
-
+    const router = useRouter();
     const isPersonalRoom = !!searchParams.get('personal')
 
 
@@ -49,7 +49,7 @@ const MeetingRoom = () => {
                 </div>
             </div>
             <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap mb-3">
-                <CallControls />
+                <CallControls onLeave={() => router.push('/')} />
 
                 {/* dropdown to change layout */}
                 <DropdownMenu>

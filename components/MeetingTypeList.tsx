@@ -8,6 +8,7 @@ import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk'
 import { useToast } from "@/hooks/use-toast"
 import { Textarea } from './ui/textarea'
 import ReactDatepicker from 'react-datepicker'
+import { Input } from './ui/input'
 
 const MeetingTypeList = () => {
 
@@ -52,7 +53,7 @@ const MeetingTypeList = () => {
                 }
             })
             setCallsDetails(call);
-            if (!values.description) { // means instant meeting not scheduled
+            if (!values.description) { // means instant meeting not scheduled meeting
                 router.push(`/meeting/${call.id}`)
             }
             toast({
@@ -139,6 +140,20 @@ const MeetingTypeList = () => {
                 }}
 
             />)}
+            <MeetingModal
+                isOpen={meetingState === 'isJoiningMeeting'}
+                onClose={() => setMeetingState(undefined)}
+                className="text-center"
+                title="Type the link here"
+                buttonText="Join Meeting"
+                handleClick={() => { router.push(values.link) }}
+            >
+                <Input
+                    placeholder='Meting Link'
+                    className='border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0 '
+                    onChange={(e) => setValues({ ...values, link: e.target.value })}
+                />
+            </MeetingModal>
         </section>
     )
 }
